@@ -10,17 +10,17 @@ const StyledGrid = styled("div", {
   gap: "10px",
 });
 
-function Grid() {
+const Grid = () => {
   return (
     <StyledGrid>
-      <Row/>
-      <Row/>
-      <Row/>
-      <Row/>
-      <Row/>
-      <Row/>
+      <Row isActive/>
+      <Row isActive={false}/>
+      <Row isActive={false}/>
+      <Row isActive={false}/>
+      <Row isActive={false}/>
+      <Row isActive={false}/>
     </StyledGrid>
   );
-}
+};
 
 export default Grid;
