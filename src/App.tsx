@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { styled } from "@stitches/react";
 import Grid from "./components/Grid";
 import { WordleContext } from "./context/wordleContext";
@@ -14,38 +14,37 @@ const Container = styled("div", {
   flexDirection: "column",
 });
 
-const StyledInput = styled("input", {
-  width: "150px",
-  height: "30px",
-  border: "2px solid #d3d3d3",
-  borderRadius: "5px",
-  padding: "5px 10px",
-  margin: "10px 0",
-  fontSize: "20px",
-  fontWeight: "bold",
-  textTransform: "uppercase",
-  color: "#000",
-  outline: "none",
-  backgroundColor: "#fff",
-  textAlign: "center",
-  transition: "0.25s border",
-  "&:focus": {
-    border: "2px solid #878a8c",
-  },
-});
+const wordReducer = (prevWord: string, key: string) => {
+  if (/^[0-9]$/i.test(key)) return prevWord;
+
+  switch (key) {
+    case "Backspace":
+      return prevWord.slice(0, -1);
+    default:
+      if (prevWord.length < 5) {
+        return `${prevWord}${key}`;
+      }
+  }
+  return prevWord;
+};
 
 function App() {
-  const [word, setWord] = useState("");
+  const [word, setWord] = useReducer(wordReducer, "");
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      setWord(e.key);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <WordleContext.Provider value={{ word }}>
       <Container>
         <Grid />
-        <StyledInput
-          type="text"
-          maxLength={5}
-          onChange={(e) => setWord(e.currentTarget.value)}
-        />
       </Container>
     </WordleContext.Provider>
   );
