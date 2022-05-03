@@ -1,8 +1,7 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import { styled } from "@stitches/react";
 import Grid from "./components/Grid";
 import { WordleContext } from "./context/wordleContext";
-import { bounce } from "./style/animation";
 
 const Container = styled("div", {
   height: "100vh",
