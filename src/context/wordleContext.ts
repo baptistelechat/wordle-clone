@@ -1,7 +1,8 @@
 import { createContext } from "react";
 
-const initialState = {
+export const initialState = {
   word: "",
+  secretWord: "hello",
 };
 
 export const WordleContext = createContext(initialState);

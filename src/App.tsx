@@ -1,7 +1,8 @@
 import React, { useEffect, useReducer } from "react";
 import { styled } from "@stitches/react";
 import Grid from "./components/Grid";
-import { WordleContext } from "./context/wordleContext";
+import { initialState, WordleContext } from "./context/wordleContext";
+import { wordReducer } from "./handler/wordReducer";
 
 const Container = styled("div", {
   height: "100vh",
@@ -13,19 +14,7 @@ const Container = styled("div", {
   flexDirection: "column",
 });
 
-const wordReducer = (prevWord: string, key: string) => {
-  if (/^[0-9]$/i.test(key)) return prevWord;
 
-  switch (key) {
-    case "Backspace":
-      return prevWord.slice(0, -1);
-    default:
-      if (prevWord.length < 5) {
-        return `${prevWord}${key}`;
-      }
-  }
-  return prevWord;
-};
 
 function App() {
   const [word, setWord] = useReducer(wordReducer, "");
@@ -41,8 +30,9 @@ function App() {
   }, []);
 
   return (
-    <WordleContext.Provider value={{ word }}>
+    <WordleContext.Provider value={{ ...initialState, word }}>
       <Container>
+        <p>🔑 Secret word : {initialState.secretWord}</p>
         <Grid />
       </Container>
     </WordleContext.Provider>
