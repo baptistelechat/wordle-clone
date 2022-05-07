@@ -3,6 +3,7 @@ import { styled } from "@stitches/react";
 import Grid from "./components/Grid";
 import { initialState, WordleContext } from "./context/wordleContext";
 import { wordReducer } from "./handler/wordReducer";
+import AlertBox from "./components/AlertBox";
 
 const Container = styled("div", {
   height: "100vh",
@@ -32,8 +33,8 @@ function App() {
   return (
     <WordleContext.Provider value={{ ...initialState, word }}>
       <Container>
-        <p>🔑 Secret word : {initialState.secretWord}</p>
         <Grid />
+        <AlertBox/>
       </Container>
     </WordleContext.Provider>
   );

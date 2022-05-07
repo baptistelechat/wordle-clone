@@ -1,5 +1,3 @@
-import { initialState } from "../context/wordleContext";
-
 export const handlePressEnter = (word: string, secretWord: string) => {
   if (word.length < secretWord.length) {
     console.log("📝 You need to type more letters!");
